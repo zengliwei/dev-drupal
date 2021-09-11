@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+
+  mysql:
+    image: mysql:5.7
+    container_name: ${COMPOSE_PROJECT_NAME}_mysql
+    restart: ${RESTART}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PSWD}
+    networks:
+      - network
+
+  drupal:
+    image: drupal
+    container_name: ${COMPOSE_PROJECT_NAME}_web
+    depends_on:
+      - mysql
+    restart: ${RESTART}
+    networks:
+      - network
+
+networks:
+
+  network:
+    external:
+      name: ${NETWORK}

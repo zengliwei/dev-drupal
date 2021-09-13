@@ -13,6 +13,8 @@ services:
       MYSQL_PASSWORD: ${DB_PSWD}
     networks:
       - network
+    volumes:
+      - ./config/mysql/mysql.cnf:/etc/mysql/mysql.cnf
 
   drupal:
     image: drupal
